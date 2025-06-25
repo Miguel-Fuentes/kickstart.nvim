@@ -59,7 +59,8 @@ return {
           'html', -- HTML language server
           'cssls', -- CSS language server
           'bashls', -- Bash language server
-          'pyright', -- Add other LSP servers you use here (e.g., "pyright", "rust_analyzer")
+          'pyright',
+          'texlab', -- Add other LSP servers you use here (e.g., "pyright", "rust_analyzer")
         },
         -- Whether Mason should automatically install missing servers on startup
         automatic_installation = true,
@@ -118,11 +119,13 @@ return {
         -- Linters
         'shellcheck', -- Shell scripts
         'luacheck', -- Lua
+        'chktex',
 
         -- Formatters
         'prettierd', -- Web formats (daemon for speed)
         'stylua', -- Lua
         'shfmt', -- Shell scripts
+        'latexindent',
       },
       -- Optional: Add UI customizations for Mason window
       -- ui = { border = "rounded" },

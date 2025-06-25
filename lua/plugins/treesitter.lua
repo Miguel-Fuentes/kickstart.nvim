@@ -26,6 +26,7 @@ return {
           -- Common markup/data formats
           'markdown',
           'markdown_inline', -- inline is needed for fenced code blocks etc.
+          'latex',
           -- Shell scripting
           'bash',
           -- Python
