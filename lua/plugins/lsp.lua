@@ -51,8 +51,6 @@ return {
       -- [[ Setup Mason-LSPConfig bridge ]]
       -- Configure which LSP servers Mason should install AND setup via lspconfig
       mason_lspconfig.setup {
-        -- List of LSP servers to install automatically by Mason
-        -- These servers are then configured by lspconfig via the handlers below
         ensure_installed = {
           'lua_ls', -- Lua language server
           'jsonls', -- JSON language server
@@ -62,32 +60,24 @@ return {
           'pyright',
           'texlab', -- Add other LSP servers you use here (e.g., "pyright", "rust_analyzer")
         },
-        -- Whether Mason should automatically install missing servers on startup
         automatic_installation = true,
-
-        -- Handlers define how lspconfig actually sets up each server.
-        -- The on_attach function we defined above is passed here.
-        handlers = {
-          -- Default handler for servers without custom setup below
-          function(server_name)
-            lspconfig[server_name].setup {
-              on_attach = on_attach,
-              capabilities = capabilities, -- Add this later for autocompletion (nvim-cmp)
-            }
-          end,
-
-          -- Example of custom setup for lua_ls, if needed
-          ['lua_ls'] = function()
-            lspconfig.lua_ls.setup {
-              -- Custom settings for lua_ls. Example: Tell it about Neovim globals
-              settings = { Lua = { diagnostics = { globals = { 'vim' } } } },
-              on_attach = on_attach,
-              capabilities = capabilities, -- Add later for autocompletion (nvim-cmp)
-            }
-          end,
-          -- Add custom handlers for other servers here if you need specific setup options
-        }, -- End of handlers table
       } -- End of mason_lspconfig.setup call
+
+      -- You can still set up custom LSP server configurations *after* mason_lspconfig.setup
+      -- For example, for lua_ls specific settings:
+      lspconfig.lua_ls.setup {
+        settings = { Lua = { diagnostics = { globals = { 'vim' } } } },
+        on_attach = on_attach,
+        capabilities = capabilities,
+      }
+
+      -- Set up other LSPs here if they need specific configurations
+      -- Example for pyright:
+      lspconfig.pyright.setup {
+        on_attach = on_attach,
+        capabilities = capabilities,
+        -- Add any pyright specific settings here if needed
+      }
 
       -- [[ Diagnostic configuration ]]
       -- Configure how diagnostics (errors, warnings) are displayed

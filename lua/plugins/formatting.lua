@@ -16,6 +16,7 @@ return {
         yaml = { 'prettierd' },
         markdown = { 'prettierd' },
         sh = { 'shfmt' },
+        python = { 'ruff' },
       },
       format_on_save = {
         timeout_ms = 500,
