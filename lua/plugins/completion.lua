@@ -34,6 +34,8 @@ return {
       -- Ensure LuaSnip settings respect lazy loading
       luasnip.config.setup {}
 
+      local cmp_select = { behavior = cmp.SelectBehavior.Select }
+
       cmp.setup {
         completion = {
           -- Use <Tab> to select suggestion and trigger completion
