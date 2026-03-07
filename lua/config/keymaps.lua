@@ -62,3 +62,51 @@ end, { desc = '[S]earch [/] in Open Files', noremap = true, silent = true })
 map('n', '<leader>sn', function()
   require('telescope.builtin').find_files { cwd = vim.fn.stdpath 'config' }
 end, { desc = '[S]earch [N]eovim files', noremap = true, silent = true })
+
+-- Neorg Specific Mappings
+-- These explicitly map Neorg's functions to your preferred keys.
+-- They will take precedence over Neorg's defaults if there are conflicts.
+
+-- Table of Contents (was `gO`)
+map('n', '<LocalLeader>no', '<cmd>Neorg toc<CR>',
+  { desc = 'Neorg: Toggle Table of Contents', noremap = true, silent = true })
+
+-- Demote item (was `<C-d>` in Neorg's default preset)
+-- Modified to cover normal, visual, and operator-pending modes
+map({ 'n', 'v', 'o' }, '<LocalLeader>nd', '<Plug>(neorg.promo.demote)',
+  { desc = 'Neorg: Demote item', noremap = true, silent = true })
+
+-- Magnify Code Block (was `<LocalLeader>cm`)
+map('n', '<LocalLeader>ncm', '<Plug>(neorg.looking-glass.magnify-code-block)',
+  { desc = 'Neorg: Magnify code block', noremap = true, silent = true })
+
+-- Insert Date (was `<LocalLeader>id`)
+map('n', '<LocalLeader>nid', '<Plug>(neorg.tempus.insert-date)',
+  { desc = 'Neorg: Insert date', noremap = true, silent = true })
+
+-- List Invert (was `<LocalLeader>li`)
+map('n', '<LocalLeader>nli', '<Plug>(neorg.pivot.list.invert)',
+  { desc = 'Neorg: List invert', noremap = true, silent = true })
+
+-- List Toggle (was `<LocalLeader>lt`)
+map('n', '<LocalLeader>nlt', '<Plug>(neorg.pivot.list.toggle)',
+  { desc = 'Neorg: List toggle', noremap = true, silent = true })
+
+-- Quality of Life Todo Items (e.g., `<LocalLeader>ta`, etc.)
+-- Note: These are normal mode mappings.
+map('n', '<LocalLeader>nta', '<Plug>(neorg.qol.todo-items.todo.task-ambiguous)',
+  { desc = 'Neorg: Toggle task ambiguous', noremap = true, silent = true })
+map('n', '<LocalLeader>ntc', '<Plug>(neorg.qol.todo-items.todo.task-cancelled)',
+  { desc = 'Neorg: Toggle task cancelled', noremap = true, silent = true })
+map('n', '<LocalLeader>ntd', '<Plug>(neorg.qol.todo-items.todo.task-done)',
+  { desc = 'Neorg: Toggle task done', noremap = true, silent = true })
+map('n', '<LocalLeader>nth', '<Plug>(neorg.qol.todo-items.todo.task-on-hold)',
+  { desc = 'Neorg: Toggle task on hold', noremap = true, silent = true })
+map('n', '<LocalLeader>nti', '<Plug>(neorg.qol.todo-items.todo.task-important)',
+  { desc = 'Neorg: Toggle task important', noremap = true, silent = true })
+map('n', '<LocalLeader>ntp', '<Plug>(neorg.qol.todo-items.todo.task-pending)',
+  { desc = 'Neorg: Toggle task pending', noremap = true, silent = true })
+map('n', '<LocalLeader>ntr', '<Plug>(neorg.qol.todo-items.todo.task-recurring)',
+  { desc = 'Neorg: Toggle task recurring', noremap = true, silent = true })
+map('n', '<LocalLeader>ntu', '<Plug>(neorg.qol.todo-items.todo.task-undone)',
+  { desc = 'Neorg: Toggle task undone', noremap = true, silent = true })

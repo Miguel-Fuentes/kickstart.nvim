@@ -28,17 +28,17 @@ return {
         local bufopts = { noremap = true, silent = true, buffer = bufnr, desc = 'LSP' }
 
         -- Standard LSP keymaps (See :help vim.lsp.buf)
-        map('n', 'K', vim.lsp.buf.hover, bufopts) -- Show hover documentation
-        map('n', 'gd', vim.lsp.buf.definition, bufopts) -- Go to definition
-        map('n', 'gD', vim.lsp.buf.declaration, bufopts) -- Go to declaration
-        map('n', 'gi', vim.lsp.buf.implementation, bufopts) -- Go to implementation
-        map('n', 'gr', vim.lsp.buf.references, bufopts) -- List references
-        map('n', '<leader>rn', vim.lsp.buf.rename, bufopts) -- Rename symbol under cursor
+        map('n', 'K', vim.lsp.buf.hover, bufopts)                -- Show hover documentation
+        map('n', 'gd', vim.lsp.buf.definition, bufopts)          -- Go to definition
+        map('n', 'gD', vim.lsp.buf.declaration, bufopts)         -- Go to declaration
+        map('n', 'gi', vim.lsp.buf.implementation, bufopts)      -- Go to implementation
+        map('n', 'gr', vim.lsp.buf.references, bufopts)          -- List references
+        map('n', '<leader>rn', vim.lsp.buf.rename, bufopts)      -- Rename symbol under cursor
         map('n', '<leader>ca', vim.lsp.buf.code_action, bufopts) -- Show code actions available
 
         -- Diagnostic keymaps (See :help vim.diagnostic)
-        map('n', '[d', vim.diagnostic.goto_prev, bufopts) -- Go to previous diagnostic item
-        map('n', ']d', vim.diagnostic.goto_next, bufopts) -- Go to next diagnostic item
+        map('n', '[d', vim.diagnostic.goto_prev, bufopts)          -- Go to previous diagnostic item
+        map('n', ']d', vim.diagnostic.goto_next, bufopts)          -- Go to next diagnostic item
         map('n', '<leader>dl', vim.diagnostic.open_float, bufopts) -- Show diagnostic details in floating window
 
         -- You can add more LSP keymaps here based on capabilities or preferences
@@ -54,11 +54,12 @@ return {
         ensure_installed = {
           'lua_ls', -- Lua language server
           'jsonls', -- JSON language server
-          'html', -- HTML language server
-          'cssls', -- CSS language server
+          'html',   -- HTML language server
+          'cssls',  -- CSS language server
           'bashls', -- Bash language server
           'pyright',
           'texlab', -- Add other LSP servers you use here (e.g., "pyright", "rust_analyzer")
+          'taplo',
         },
         automatic_installation = true,
       } -- End of mason_lspconfig.setup call
@@ -82,22 +83,23 @@ return {
       -- [[ Diagnostic configuration ]]
       -- Configure how diagnostics (errors, warnings) are displayed
       vim.diagnostic.config {
-        virtual_text = false, -- Don't show error message inline (can be noisy)
-        signs = true, -- Show icons in the sign column (gutter)
-        underline = true, -- Underline errors
+        virtual_text = false,     -- Don't show error message inline (can be noisy)
+        signs = true,             -- Show icons in the sign column (gutter)
+        underline = true,         -- Underline errors
         update_in_insert = false, -- Only update diagnostics when leaving insert mode
-        severity_sort = true, -- Sort diagnostics by severity
+        severity_sort = true,     -- Sort diagnostics by severity
+        signs = {
+          enable = true,
+          text = {
+            Error = ' ',
+            Warn = ' ',
+            Hint = ' ',
+            Info = ' '
+          }
+        }
       }
-
-      -- [[ Diagnostic signs customization ]] (Optional: Pretty icons)
-      -- Make sure you have a Nerd Font installed and configured in your terminal
-      local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
-      for type, icon in pairs(signs) do
-        local hl = 'DiagnosticSign' .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-      end
     end, -- End of the main config function for nvim-lspconfig
-  }, -- End of nvim-lspconfig plugin specification
+  },     -- End of nvim-lspconfig plugin specification
 
   -- Mason plugin configuration (installs LSPs, Linters, Formatters)
   {
@@ -108,13 +110,13 @@ return {
       ensure_installed = {
         -- Linters
         'shellcheck', -- Shell scripts
-        'luacheck', -- Lua
+        'luacheck',   -- Lua
         'chktex',
 
         -- Formatters
         'prettierd', -- Web formats (daemon for speed)
-        'stylua', -- Lua
-        'shfmt', -- Shell scripts
+        'stylua',    -- Lua
+        'shfmt',     -- Shell scripts
         'latexindent',
       },
       -- Optional: Add UI customizations for Mason window
